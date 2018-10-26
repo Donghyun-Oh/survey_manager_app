@@ -1,7 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./app";
+import { Provider } from "react-redux";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import App from "./component/app";
+import storeFactory from "./store";
 
-ReactDOM.render(<App/>, document.getElementById("app"));
+import jQuery from "jquery";
+window.$ = window.jQuery = jQuery;
+
+import "@fortawesome/fontawesome-free/css/all.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+//import "animsition/dist/css/animsition.min.css"
+
+import "../stylesheets/app.css";
+
+const store = storeFactory();
+
+
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("app")
+);
