@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 
-import NoticeList from "./noticeList"
+import {SurveyContainer} from "./../container"
+import SurveyEditor from "./surveyEditor";
 
 const MainContent = () => {
   return (
     <div className="main-content">
-      <div className="section__content section__content--p30">
+      <div className="section-content section-content-p30">
         <div className="container-fluid">
           <div className="row">
-            <NoticeList />
+            {/* <SurveyContainer /> */}
+            <SurveyEditor/>
           </div>
         </div>
       </div>

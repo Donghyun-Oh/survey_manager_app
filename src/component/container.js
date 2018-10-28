@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from 'react-redux'
 
 import Sidebar from "./ui/sidebar";
+import SurveyList from "./ui/surveyList"
 import { toggleMenu } from "../actions";
 
 export const SidebarContainer = connect(
@@ -19,4 +20,16 @@ export const SidebarContainer = connect(
     })
   }
 )(Sidebar)
+
+export const SurveyContainer = connect(
+  (state) => {
+    return ({
+      surveys : [...state.surveys].sort()
+    })
+  },
+  (dispatch) => {
+    return({
+    })
+  }
+)(SurveyList)
 

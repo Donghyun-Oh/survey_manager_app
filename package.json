@@ -16,6 +16,9 @@
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
+    "survey-knockout": "^1.0.52",
+    "survey-react": "^1.0.52",
+    "surveyjs-editor": "^1.0.52",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import '../../../stylesheets/notice.css'
+import '../../../stylesheets/surveyList.css'
 
 
 const noticesSample = [
@@ -15,8 +15,7 @@ const noticesSample = [
   {id:"20181001-009", name :"임시 설문조사", begindate:"2018-10-01", enddate:"2018-10-30", author:"codechaser", publishdate:"2018-10-01"}
 ]
 
-const NoticeList = ({notices = []}) => {
-  notices = noticesSample
+const SurveyList = ({surveys = []}) => {
   return (
     <div className="notice-list">
       <h2 className="table-title">설문목록</h2>
@@ -33,18 +32,18 @@ const NoticeList = ({notices = []}) => {
             </tr>
           </thead>
           <tbody>
-            {notices.length === 0 ? (
+            {surveys.length === 0 ? (
               <tr><td>설문내역이 없습니다.</td></tr>
             ) : (
-                notices.map(notice => {
+              surveys.map(survey => {
                   return (
-                    <tr key={notice.id}>
-                      <td className="text-center">{notice.id}</td>
-                      <td className="text-left">{notice.name}</td>
-                      <td className="text-center">{notice.begindate}</td>
-                      <td className="text-center">{notice.enddate}</td>
-                      <td className="text-center">{notice.author}</td>
-                      <td className="text-center">{notice.publishdate}</td>
+                    <tr key={survey.id}>
+                      <td className="text-center">{survey.id}</td>
+                      <td className="text-left">{survey.name}</td>
+                      <td className="text-center">{survey.begindate}</td>
+                      <td className="text-center">{survey.enddate}</td>
+                      <td className="text-center">{survey.author}</td>
+                      <td className="text-center">{survey.publishdate}</td>
                     </tr>
                   );
                 })
@@ -55,4 +54,4 @@ const NoticeList = ({notices = []}) => {
     </div>
   )
 };
-export default NoticeList;
+export default SurveyList;

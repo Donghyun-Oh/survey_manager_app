@@ -9,3 +9,7 @@ export const toggleMenu = (id) => {
 }
 
 
+export const nextPage = (pageNum) => {
+  return {}
+}
+

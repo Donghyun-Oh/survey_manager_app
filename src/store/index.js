@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import { menus } from "./reducers";
+import { menus, surveys } from "./reducers";
 
 const stateData = {
   menus: [
@@ -10,6 +10,18 @@ const stateData = {
        { id: "B001", group:"B", name: "설문조사등록", order: "1", programData:{} },
        { id: "B002", group:"B", name: "설문조사현황", order: "2", programData:{} }
     ]}
+  ],
+  surveys:[
+    {id:"20181001-001", name :"임시 설문조사", begindate:"2018-10-01", enddate:"2018-10-30", author:"codechaser", publishdate:"2018-10-01"},
+    {id:"20181001-002", name :"임시 설문조사", begindate:"2018-10-01", enddate:"2018-10-30", author:"codechaser", publishdate:"2018-10-01"},
+    {id:"20181001-003", name :"임시 설문조사", begindate:"2018-10-01", enddate:"2018-10-30", author:"codechaser", publishdate:"2018-10-01"},
+    {id:"20181001-004", name :"임시 설문조사", begindate:"2018-10-01", enddate:"2018-10-30", author:"codechaser", publishdate:"2018-10-01"},
+    // {id:"20181001-004", name :"임시 설문조사", begindate:"2018-10-01", enddate:"2018-10-30", author:"codechaser", publishdate:"2018-10-01"},
+    // {id:"20181001-005", name :"임시 설문조사", begindate:"2018-10-01", enddate:"2018-10-30", author:"codechaser", publishdate:"2018-10-01"},
+    // {id:"20181001-006", name :"임시 설문조사", begindate:"2018-10-01", enddate:"2018-10-30", author:"codechaser", publishdate:"2018-10-01"},
+    // {id:"20181001-007", name :"임시 설문조사", begindate:"2018-10-01", enddate:"2018-10-30", author:"codechaser", publishdate:"2018-10-01"},
+    // {id:"20181001-008", name :"임시 설문조사", begindate:"2018-10-01", enddate:"2018-10-30", author:"codechaser", publishdate:"2018-10-01"},
+    {id:"20181001-009", name :"임시 설문조사", begindate:"2018-10-01", enddate:"2018-10-30", author:"codechaser", publishdate:"2018-10-01"}
   ]
 };
 
@@ -31,11 +43,12 @@ const saver = store => next => action => {
 };
 
 const storeFactory = (initialState = stateData) => {
-  return applyMiddleware(logger, saver)(createStore)(
-    combineReducers({ menus }),
-    localStorage["survey-app-store"]
-      ? JSON.parse(localStorage["survey-app-store"])
-      : initialState
+  return applyMiddleware(logger)(createStore)(
+    combineReducers({ menus, surveys }),
+    // localStorage["survey-app-store"]
+    //   ? JSON.parse(localStorage["survey-app-store"])
+    //   : initialState
+    initialState
   );
 };
 

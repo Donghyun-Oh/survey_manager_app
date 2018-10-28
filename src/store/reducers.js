@@ -20,3 +20,16 @@ export const menus = (state=[], action) => {
   }
 }
 
+export const survey = (state={}, action) => {
+  switch (action.type) {
+    default :
+      return state
+  }
+}
+export const surveys = (state=[], action) => {
+  switch (action.type) {
+    default :
+      return state
+  }
+}
+

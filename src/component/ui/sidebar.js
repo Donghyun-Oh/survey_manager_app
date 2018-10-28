@@ -25,7 +25,7 @@ const Sidebar = ({menus=[], onMenuToggle=f=>f}) => {
     <div className="menu-sidebar d-lg-block">
       <div className="logo">
         <a href="#">
-          <img src="images/icon/logo.png" alt="Cool Admin" />
+          <img src="images/logo.png" alt="설문관리시스템" />
         </a>
       </div>
       <div className="menu-sidebar-content">
