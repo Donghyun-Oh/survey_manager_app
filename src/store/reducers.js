@@ -33,3 +33,16 @@ export const surveys = (state=[], action) => {
   }
 }
 
+export const userinfo = (state={}, action) => {
+  switch (action.type) {
+    case CONST.LOG_IN:
+      //return Object.keys(action).filter( key => key != 'type')
+      console.log(state)
+      return action.userinfo
+    case CONST.LOG_OUT:
+      return {}
+    default :
+      return {}
+  }
+}
+

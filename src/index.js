@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { HashRouter } from "react-router-dom";
 
-import App from "./component/app";
 import storeFactory from "./store";
+import App from "./component/app";
+import Login from "./component/ui/login"
 
 import jQuery from "jquery";
 window.$ = window.jQuery = jQuery;
@@ -16,11 +18,31 @@ import "../stylesheets/app.css";
 
 const store = storeFactory();
 
+// class Index extends Component {
+//   componentWillUpdate() {
+//     console.log("componentWillUpdate");
+//   }
+//   render() {
+//     console.log(store.getState());
+//     console.log(store.getState().userinfo.userid );
+//     if(!store.getState().userinfo.userid){
+//       return <Login />
+//     }
+//     return <div>app</div>
+//   }
+// }
 
 
-ReactDOM.render(
+
+const render =  () => ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App/>
   </Provider>,
   document.getElementById("app")
-);
+)
+render();
+
+store.subscribe(() => {
+  console.log("subscribe");
+  //render()
+})

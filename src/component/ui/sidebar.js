@@ -1,20 +1,9 @@
 import React, { Component } from "react";
+import {NavLink} from 'react-router-dom'
 import PropTypes from "prop-types";
 
-/*
-var arrow = $('.js-arrow');
-arrow.each(function () {
-  var that = $(this);
-  that.on('click', function (e) {
-    e.preventDefault();
-    //that.find(".arrow").toggleClass("up");
-    //that.toggleClass("open");
-    that.parent().find('.js-sub-list').slideToggle("250");
-  });
-});
-*/
+
 const Sidebar = ({menus=[], onMenuToggle=f=>f}) => {
-  //const {_menuitem} = state.refs
   const _onToggle = (e, id) => {
     //console.log("_onToggle", e);
     e.preventDefault()
@@ -45,7 +34,9 @@ const Sidebar = ({menus=[], onMenuToggle=f=>f}) => {
                         {menu.submenus.map( (menu) => {
                           return (
                             <li key={menu.id}>
-                              <a href="index.html">{menu.name}</a>
+                              <NavLink to={menu.router} activeClassName="active">{menu.name}</NavLink>
+                              {/* <a href="/#/Events">{menu.name}</a> */}
+                              {/* <Link to={menu.router}>{menu.name}</Link> */}
                             </li>
                           )
                         })}

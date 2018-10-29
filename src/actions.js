@@ -8,6 +8,18 @@ export const toggleMenu = (id) => {
   }
 }
 
+export const login = (userinfo) => {
+  return {
+    type : CONST.LOG_IN,
+    userinfo
+  }
+}
+
+export const logout = () => {
+  return {
+    type : CONST.LOG_OUT
+  }
+}
 
 export const nextPage = (pageNum) => {
   return {}

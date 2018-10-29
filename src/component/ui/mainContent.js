@@ -1,20 +1,18 @@
 import React, { Component } from "react";
-
-import {SurveyContainer} from "./../container"
+import { Switch, Route } from "react-router-dom";
+import { SurveyContainer } from "./../container";
 import SurveyEditor from "./surveyEditor";
+import SurveyList from "./surveyList";
+
+import { Home, About, Events, Products, Contact } from "./pages";
 
 const MainContent = () => {
   return (
-    <div className="main-content">
-      <div className="section-content section-content-p30">
-        <div className="container-fluid">
-          <div className="row">
-            {/* <SurveyContainer /> */}
-            <SurveyEditor/>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/surveys/new" component={SurveyEditor} />
+      <Route exact path="/surveys" component={SurveyList} />
+    </Switch>
   );
 };
 export default MainContent;

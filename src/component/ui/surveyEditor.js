@@ -3,7 +3,6 @@ import * as SurveyJSEditor from "surveyjs-editor";
 // import * as SurveyKo from "survey-knockout";
 import "surveyjs-editor/surveyeditor.css";
 
-
 // const surveyJSON = {
 //     title: "Tell us, what technologies do you use?", pages: [
 //         {
@@ -33,26 +32,33 @@ import "surveyjs-editor/surveyeditor.css";
 // }
 
 class SurveyEditor extends Component {
-    constructor(props) {
-        super(props)
-        this.saveMySurvey = this.saveMySurvey.bind(this)
-    }
-    componentDidMount() {
-        let editorOptions = { showEmbededSurveyTab: true }
-         this.editor = new SurveyJSEditor.SurveyEditor(
-             "surveyEditorContainer",
-             editorOptions
-         );
-         this.editor.saveSurveyFunc = this.saveMySurvey;
-    }
-    saveMySurvey () {
-        console.log(JSON.stringify(this.editor.text))
-    }
-    render() {
-        return <div id="surveyEditorContainer" />;
-    }
-
+  constructor(props) {
+    super(props);
+    this.saveMySurvey = this.saveMySurvey.bind(this);
+  }
+  componentDidMount() {
+    let editorOptions = { showJSONEditorTab: false };
+    SurveyJSEditor.editorLocalization.currentLocale = "ko";
+    this.editor = new SurveyJSEditor.SurveyEditor(
+      "surveyEditorContainer",
+      editorOptions
+    );
+    this.editor.saveSurveyFunc = this.saveMySurvey;
+    jQuery(".svd_commercial_container").remove()
+  }
+  saveMySurvey() {
+    console.log(JSON.stringify(this.editor.text));
+  }
+  render() {
+    return (
+      <div className="main-content">
+        <div className="container-fluid">
+          <h2 className="main-content-title">설문조사등록</h2>
+          <div id="surveyEditorContainer" />
+        </div>
+      </div>
+    );
+  }
 }
 
-
-export default SurveyEditor
+export default SurveyEditor;
