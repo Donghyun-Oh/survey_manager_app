@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SurveyJS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://surveyjs.azureedge.net/1.0.53/survey.jquery.js"></script>
+    <link href="https://surveyjs.azureedge.net/1.0.53/survey.css" type="text/css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div id="surveyElement"></div>
+
+    <script>
+        Survey.StylesManager.applyTheme("default");
+        
+        axios.get("/surveys/" + getUrlVars().surveyid)
+        .then(response => {
+          var json = response.data;
+          survey = new Survey.Model(json["내용"]);
+
+          survey.onComplete.add(function (result) {
+            console.log(result.data);
+            var param = {id:"", "결과":result.data};
+            axios.post("/surveys/" + getUrlVars().surveyid + "/result", param)
+            .then(response => {
+              console.log(response);
+            });
+          });
+          $("#surveyElement").Survey({ model: survey });
+        })
+        .catch(response => {
+          console.log(response);
+        });
+        
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+    </script>
+</body>
+
+</html>

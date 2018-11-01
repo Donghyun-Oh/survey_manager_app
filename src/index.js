@@ -12,27 +12,10 @@ window.$ = window.jQuery = jQuery;
 
 import "@fortawesome/fontawesome-free/css/all.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-//import "animsition/dist/css/animsition.min.css"
 
 import "../stylesheets/app.css";
 
 const store = storeFactory();
-
-// class Index extends Component {
-//   componentWillUpdate() {
-//     console.log("componentWillUpdate");
-//   }
-//   render() {
-//     console.log(store.getState());
-//     console.log(store.getState().userinfo.userid );
-//     if(!store.getState().userinfo.userid){
-//       return <Login />
-//     }
-//     return <div>app</div>
-//   }
-// }
-
-
 
 const render =  () => ReactDOM.render(
   <Provider store={store}>
@@ -42,7 +25,6 @@ const render =  () => ReactDOM.render(
 )
 render();
 
-store.subscribe(() => {
-  console.log("subscribe");
-  //render()
-})
+// store.subscribe(() => {
+//   console.log("subscribe");
+// })

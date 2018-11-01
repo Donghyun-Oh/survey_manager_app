@@ -1,53 +1,82 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux'
 import * as SurveyJSEditor from "surveyjs-editor";
-// import * as SurveyKo from "survey-knockout";
+import axios from "axios";
+
 import "surveyjs-editor/surveyeditor.css";
 
-// const surveyJSON = {
-//     title: "Tell us, what technologies do you use?", pages: [
-//         {
-//             name: "page1", questions: [
-//                 { type: "radiogroup", choices: ["Yes", "No"], isRequired: true, name: "frameworkUsing", title: "Do you use any front-end framework like Bootstrap?" },
-//                 { type: "checkbox", choices: ["Bootstrap", "Foundation"], hasOther: true, isRequired: true, name: "framework", title: "What front-end framework do you use?", visibleIf: "{frameworkUsing} = 'Yes'" }
-//             ]
-//         },
-//         {
-//             name: "page2", questions: [
-//                 { type: "radiogroup", choices: ["Yes", "No"], isRequired: true, name: "mvvmUsing", title: "Do you use any MVVM framework?" },
-//                 { type: "checkbox", choices: ["AngularJS", "KnockoutJS", "React"], hasOther: true, isRequired: true, name: "mvvm", title: "What MVVM framework do you use?", visibleIf: "{mvvmUsing} = 'Yes'" }]
-//         },
-//         {
-//             name: "page3", questions: [
-//                 { type: "comment", name: "about", title: "Please tell us about your main requirements for Survey library" }]
-//         }
-//     ]
-// };
-// const sendDataToServer = () => {
-//     console.log("sendDataToServer");
-// }
-// const SurveyWrite = ({}) => {
-//     return (
-//         <div id="surveyEditorContainer"></div>
-//     )
-// }
-
-class SurveyEditor extends Component {
+class SurveyEditorUI extends Component {
   constructor(props) {
     super(props);
-    this.saveMySurvey = this.saveMySurvey.bind(this);
+    this.saveSurvey = this.saveSurvey.bind(this);
+    this.loadSurvey = this.loadSurvey.bind(this);
+    this.surveyid = this.props.match.params.id
   }
   componentDidMount() {
-    let editorOptions = { showJSONEditorTab: false };
     SurveyJSEditor.editorLocalization.currentLocale = "ko";
     this.editor = new SurveyJSEditor.SurveyEditor(
       "surveyEditorContainer",
-      editorOptions
+      { showJSONEditorTab: false, 
+        //showEmbededSurveyTab:false, 
+        showPropertyGrid:false }
     );
-    this.editor.saveSurveyFunc = this.saveMySurvey;
-    jQuery(".svd_commercial_container").remove()
+    this.editor.saveSurveyFunc = this.saveSurvey;
+    jQuery(".svd_commercial_container").remove();
+    
+    if(this.surveyid){
+      console.log("loadsurvey");
+      this.loadSurvey()
+    }
   }
-  saveMySurvey() {
-    console.log(JSON.stringify(this.editor.text));
+  loadSurvey(){
+    axios.get("/surveys/"+this.surveyid)
+    .then(response => {
+      console.log(response.data);
+      // this.setState({
+      //   surveys : response.data
+      // })
+      //this.editor.loadSurvey(response.data["내용"]);
+      this.editor.text = response.data["내용"]
+    })
+    .catch(response => {
+      console.log(response);
+    });
+  }
+  saveSurvey() {
+    let bizCode = ""
+    let userid = this.props.userinfo["사용자ID"]
+    let yyyymm = ""
+    let seq = ""
+    if(this.surveyid){
+      let code = this.surveyid.split("-")
+      bizCode = code[0]
+      yyyymm =  code[1]
+      seq =  code[2]
+    }else{
+      bizCode = this.props.userinfo["사업부"]
+      let date = new Date();
+      let year = date.getFullYear()
+      let month = date.getMonth() + 1;
+      if (month < 10) {
+        yyyymm = ""+ year + "0" + month
+      }else{
+        yyyymm = ""+ year + month
+      }
+    }
+    axios.post("/surveys/new", {
+        "사용자ID" : userid,
+        "사업부" : bizCode,
+        "년월" : yyyymm,
+        "순번" : seq,
+        "surveyJSON": this.editor.text
+      })
+      .then(response => {
+        //console.log(response.data);
+        this.props.history.push('/surveys')
+      })
+      .catch(response => {
+        console.log(response);
+      });
   }
   render() {
     return (
@@ -60,5 +89,14 @@ class SurveyEditor extends Component {
     );
   }
 }
+
+export const SurveyEditor = connect(
+  (state) => {
+    return ({
+      userinfo : {...state.userinfo}
+    })
+  },
+  null
+)(SurveyEditorUI)
 
 export default SurveyEditor;

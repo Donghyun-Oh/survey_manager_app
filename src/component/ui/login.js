@@ -1,18 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 
 import { login } from "../../actions";
 
 import "../../../stylesheets/login.css";
 
-const LoginComponent = ({userinfo={}, userLogin=f=>f, userLogout=f=>f}) => {
+const LoginUI = ({userinfo={}, userLogin=f=>f, userLogout=f=>f}) => {
   let input_userid, input_userpw
   const loginButtonClick = function(e, t) {
     e.preventDefault()
-    console.log("login");
+    //userLogin({"사용자ID":input_userid.value, "사업부" : "M"});
+
+    axios.post("/users/login", {
+      "사용자ID": input_userid.value,
+      "비밀번호": input_userpw.value
+    })
+    .then(response => {
+      console.log(response);
+      userLogin({...response.data});
+    })
+    .catch(response => {
+      console.log(response);
+    });
     
-    //로그인체크
-    userLogin({userid:input_userid.value});
   }
   return (
     <div className="page-wrapper">
@@ -39,8 +50,8 @@ const LoginComponent = ({userinfo={}, userLogin=f=>f, userLogout=f=>f}) => {
                     <label>패스워드</label>
                     <input
                       className="input input-full"
-                      type="user_pw"
-                      name="password"
+                      type="password"
+                      name="user_pw"
                       placeholder="패스워드"
                       ref={input=>input_userpw=input}
                     />
@@ -50,7 +61,6 @@ const LoginComponent = ({userinfo={}, userLogin=f=>f, userLogout=f=>f}) => {
                     onClick={(e)=>loginButtonClick(e)}>
                     로그인
                   </button>
-                  {userinfo.userid?"ture":"false"}
               </div>
             </div>
           </div>
@@ -74,6 +84,6 @@ const Login = connect(
       }
     })
   }
-)(LoginComponent)
+)(LoginUI)
 
 export default Login;

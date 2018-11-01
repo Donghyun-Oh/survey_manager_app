@@ -24,3 +24,7 @@
   padding-left: 15px;
   padding-right: 65px;
 } */
+
+.table-notice tbody tr {
+  cursor: pointer
+}

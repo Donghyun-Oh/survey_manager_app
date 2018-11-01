@@ -1,5 +1,5 @@
 {
-  "name": "color_app",
+  "name": "survey_manager_app",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.4.1",
+    "axios": "^0.18.0",
     "jquery": "^3.3.1",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
@@ -23,6 +23,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.4.1",
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",

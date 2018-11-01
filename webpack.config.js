@@ -2,7 +2,8 @@ var webpack = require("webpack");
 var path = require("path");
 
 var SRC_PATH = path.resolve(__dirname, "src");
-var BUILD_PATH = path.resolve(__dirname, "build");
+//var BUILD_PATH = path.resolve(__dirname, "build");
+var BUILD_PATH = "/Program Files/eclipse_workplace/sj_survey_manager/src/main/webapp/js";
 
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -37,6 +38,9 @@ var config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./index.html"
+    }),
+    new webpack.optimize.MinChunkSizePlugin({
+      minChunkSize: 512000 // 50kb
     })
   ]
 };
