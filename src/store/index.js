@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import { menus, datas, userinfo } from "./reducers";
+import { menus, userinfo } from "./reducers";
 
 const stateData = {
   menus: [
@@ -10,7 +10,6 @@ const stateData = {
        { id: "B002", group:"B", name: "설문조사등록현황", order: "2", router:"/surveys", programData:{} }
     ]}
   ],
-  datas:[],
   userinfo: {}
 };
 
@@ -33,7 +32,7 @@ const saver = store => next => action => {
 
 const storeFactory = (initialState = stateData) => {
   return applyMiddleware(logger)(createStore)(
-    combineReducers({ menus, datas, userinfo }),
+    combineReducers({ menus, userinfo }),
     // localStorage["survey-app-store"]
     //   ? JSON.parse(localStorage["survey-app-store"])
     //   : initialState

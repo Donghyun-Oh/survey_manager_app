@@ -35,6 +35,16 @@ var config = {
       }
     ]
   },
+  devServer: {
+    historyApiFallback: true,
+    compress: true,
+    publicPath: '/',
+    host: "127.0.0.1",
+    port: 3000,
+    proxy: {
+        "**": "http://localhost:8080"
+    }
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./index.html"
